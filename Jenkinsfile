@@ -11,7 +11,7 @@ pipeline {
         }
         stage("test_branch"){   
             steps{
-                 echo "inside test_branch stage"
+                 py git_webhook.py
             }
         }
         stage('test'){
