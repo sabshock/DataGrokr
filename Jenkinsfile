@@ -16,7 +16,7 @@ pipeline {
                 }   
             }
             steps{
-                 py git_webhook.py
+                 echo "Test branch only get to print this msg"
             }
         }
         stage('test'){
