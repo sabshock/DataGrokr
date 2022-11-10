@@ -12,11 +12,11 @@ pipeline {
         stage("test_branch"){
             when{
                 expression {
-                        BRANCH_NAME == "test"
+                        BRANCH_NAME == "python"
                 }   
             }
             steps{
-                 echo "Test branch only get to print this msg"
+                 sh 'python git_webhook.py'
             }
         }
         stage('test'){
@@ -25,11 +25,6 @@ pipeline {
                 echo 'testing the app'
             }
         }
-        stage('deploy'){
-        
-            steps{
-                echo 'deploy the app'
-            }
         }
     }
 }
