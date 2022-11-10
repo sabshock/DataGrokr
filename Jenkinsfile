@@ -2,22 +2,34 @@ pipeline {
 
     agent any
 
-    Stages('build'){
+    stages{
+        stage('build'){
         
-        steps{
+            steps{
                 echo 'building the app'
+            }   
         }
-    }
-    Stages('test'){
+        stage('test-branch'){
+            when{
+                branch "test"
+            }
+            steps{
+                sh ''' 
+                py git_webhook.py
+                '''
+            }
+        }
+        stage('test'){
         
-        steps{
+            steps{
                 echo 'testing the app'
+            }
         }
-    }
-    Stages('deploy'){
+        stage('deploy'){
         
-        steps{
+            steps{
                 echo 'deploy the app'
+            }
         }
     }
 }
