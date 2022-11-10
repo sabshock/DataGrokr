@@ -9,7 +9,7 @@ pipeline {
                 echo 'building the app'
             }   
         }
-        stage('test-branch'){
+        stage("test_branch"){
             when{
                 expression {
                         BRANCH_NAME == "test"
