@@ -12,7 +12,7 @@ pipeline {
         stage("test_branch"){  
             
             steps{
-                 sh 'py git_webhook.py'
+                 bat 'py git_webhook.py'
             }
         }
         stage('test'){
