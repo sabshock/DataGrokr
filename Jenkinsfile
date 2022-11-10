@@ -16,7 +16,7 @@ pipeline {
                 }   
             }
             steps{
-                 sh 'echo "inside test_branch stage"'
+                 echo "inside test_branch stage"
             }
         }
         stage('test'){
