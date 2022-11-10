@@ -9,9 +9,10 @@ pipeline {
                 echo 'building the app'
             }   
         }
-        stage("test_branch"){   
+        stage("test_branch"){  
+            
             steps{
-                 py git_webhook.py
+                 sh "py git_webhook.py"
             }
         }
         stage('test'){
