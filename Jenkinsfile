@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CRED = credentials('dockerhub')
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
 
     stages{
@@ -21,7 +21,7 @@ pipeline {
         }
         stage("test"){
             steps{
-                 bat 'py test_calc.py'
+                 echo "Test"
             }
         }
         stage('deploy'){
