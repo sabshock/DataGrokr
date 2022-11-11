@@ -2,10 +2,6 @@ pipeline {
 
     agent any
 
-    environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-    }
-
     stages{
         stage('Git-checkout'){
             steps{
@@ -33,15 +29,18 @@ pipeline {
         }
         
         stage('Push image') {
-            withCredentials([usernamePassword( credentialsId: 'dockerhub', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
-                def registry_url = "registry.hub.docker.com/"
-                bat "docker login -u $USER -p $PASSWORD ${registry_url}"
-                docker.withRegistry("http://${registry_url}", "dockerhub") {
-            // Push your image now
-            bat "docker push sab10/calculator_image"
+            steps{
+                echo "Logging into docker"
+                withCredentials([usernamePassword( credentialsId: 'dockerhub', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+                    //def registry_url = "registry.hub.docker.com/"
+                    bat "docker login -u $USER -p $PASSWORD "
+                
+                    // Push your image now
+                    bat "docker push sab10/calculator_image"
+                
+                }
+            }
         }
-    }
-}
     }
     
     post {
