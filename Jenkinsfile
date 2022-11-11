@@ -17,7 +17,8 @@ pipeline {
         }
         stage("test"){
             steps{
-                 echo "Test"
+                 echo "Testing"
+                bat "py test_calc.py"
             }
         }
         stage('deploy'){
