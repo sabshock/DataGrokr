@@ -1,4 +1,4 @@
 FROM python
 COPY . /calculator_app
 WORKDIR /calculator_app
-CMD ['python',calculator.py]
+CMD ['python',calc_app.py]
