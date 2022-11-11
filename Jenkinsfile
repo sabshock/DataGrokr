@@ -31,19 +31,17 @@ pipeline {
                 
             }
         }
-        stage('Login'){
-
-            steps{
-                echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
-
-            }
+        
+        stage('Push image') {
+            withCredentials([usernamePassword( credentialsId: 'dockerhub', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+                def registry_url = "registry.hub.docker.com/"
+                bat "docker login -u $USER -p $PASSWORD ${registry_url}"
+                docker.withRegistry("http://${registry_url}", "dockerhub") {
+            // Push your image now
+            bat "docker push sab10/calculator_image"
         }
-        stage('Push'){
-
-            steps{
-                bat 'docker push sab10/calculator_image'
-            }
-        }
+    }
+}
     }
     
     post {
