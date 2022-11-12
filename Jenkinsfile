@@ -1,7 +1,8 @@
 pipeline {
-    agent any
+    agent none
     
     stages{
+        agent any
         stage ('Git-checkout') {
             steps{
                 echo " Checking out git Repo"
@@ -20,14 +21,14 @@ pipeline {
         }
 
         stage ('docker image building') {
-            
+            agent any
             steps{
                 bat 'docker build -t sab10/calculator_image_by_dockeragent .'
                 
             }
         }
         stage ('image push'){
-
+            agent any
             steps {
                 echo "Logging into docker"
                 withCredentials([usernamePassword( credentialsId: 'dockerhub', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
