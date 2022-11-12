@@ -1,5 +1,5 @@
 pipeline {
-    agent {'slave_1'}
+    agent any
     
     stages{
         stage ('Git-checkout') {
@@ -25,7 +25,10 @@ pipeline {
                 bat 'docker build -t sab10/calculator_image_by_dockeragent .'
                 
             }
-            steps ( 'docker image push') {
+        }
+        stage ('image push'){
+
+            steps {
                 echo "Logging into docker"
                 withCredentials([usernamePassword( credentialsId: 'dockerhub', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
                     //def registry_url = "registry.hub.docker.com/"
