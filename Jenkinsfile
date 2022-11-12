@@ -1,5 +1,5 @@
 pipeline {
-    agent slave_1
+    agent {'slave_1'}
     
     stages{
         stage ('Git-checkout') {
