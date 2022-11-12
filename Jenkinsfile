@@ -2,8 +2,9 @@ pipeline {
     agent none
     
     stages{
-        agent any
+        
         stage ('Git-checkout') {
+            agent any
             steps{
                 echo " Checking out git Repo"
                 git branch: 'python', url: 'https://github.com/sabshock/DataGrokr.git'
