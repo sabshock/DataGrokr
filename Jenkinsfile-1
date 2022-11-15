@@ -1,11 +1,20 @@
 pipeline{
     agent{
-        docker { image 'python:3.8'}
-    }
+        label  docker_jenkins_linex_agent}
     stages {
-        stage ('Testing'){
+        stage ('git-checkout'){
             steps{
-                bat 'py test_calc.py'
+                sh 'echo Checking out git Repo'
+                git branch: 'python', url: 'https://github.com/sabshock/DataGrokr.git'
+            }
+
+        }
+
+        stage ('Test') {
+            
+            steps{
+                sh'echo "Runing Unit test"'    
+                sh 'python3 start.py'
             }
 
         }
