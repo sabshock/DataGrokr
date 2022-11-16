@@ -1,6 +1,6 @@
 pipeline{
     agent{
-        label  agent_lin}
+        label  "agent_lin"}
     stages {
         stage ('git-checkout'){
             steps{
