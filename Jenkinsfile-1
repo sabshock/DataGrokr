@@ -24,15 +24,13 @@ pipeline {
         
         stage('build and Push image') {
             steps{
-                echo "Logging into AWS"
-                withenv(["AWS_ACCESS_KEY_ID = ${env.aws_sabDG_id}","AWS_SECRET_ACCESS_KEY = ${env.aws_sabDG_key}","AWS_DEFAULT_REGION = ${env.aws_region}"]){
-                    
-                    bat 'docker login -u AWS -p $(aws ecr-public get-login-password --region us-east-1) public.ecr.aws/b9y2x3m3'
-                    echo 'building the image'
-                    bat 'docker build -t public.ecr.aws/b9y2x3m3/dg_devops_container/calc_app:""$BUILD_ID"" .'
-                    echo 'Pushing the image to AWS ECR'
-                    bat 'docker push public.ecr.aws/b9y2x3m3/dg_devops_container/calc_app:""$BUILD_ID""'
-                }
+                echo "Logging into AWS"           
+                bat 'docker login -u AWS -p $(aws ecr-public get-login-password --region us-east-1) public.ecr.aws/b9y2x3m3'
+                echo 'building the image'
+                bat 'docker build -t public.ecr.aws/b9y2x3m3/dg_devops_container/calc_app:""$BUILD_ID"" .'
+                echo 'Pushing the image to AWS ECR'                  
+                bat 'docker push public.ecr.aws/b9y2x3m3/dg_devops_container/calc_app:""$BUILD_ID""'
+                
             }
         }
     }
