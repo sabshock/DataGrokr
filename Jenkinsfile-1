@@ -1,0 +1,46 @@
+pipeline {
+
+    agent any
+
+    stages{
+        stage('Git-checkout'){
+            steps{
+                echo " Checking out git Repo"
+                git branch: 'python', url: 'https://github.com/sabshock/DataGrokr.git'
+            }
+        }
+        stage('build'){
+        
+            steps{
+                echo 'building the app'
+            }   
+        }
+        stage("test"){
+            steps{
+                 echo "Test"
+                 bat 'py test_calc.py'
+            }
+        }
+        
+        stage('build and Push image') {
+            steps{
+                echo "Logging into AWS"
+                withenv({"aws_id = $(env.aws_sabDG_id)","aws_key = $(env.aws_sabDG_key)","aws_region = $(env.aws_region)"}){
+                    echo "Loggin in to AWS ecr"
+                    bat 'docker login -u AWS -p $(aws ecr-public get-login-password --region us-east-1) public.ecr.aws/b9y2x3m3'
+                    echo 'building the image'
+                    bat 'docker build -t public.ecr.aws/b9y2x3m3/dg_devops_container/calc_app:""$BUILD_ID"" .'
+                    echo 'Pushing the image to AWS ECR'
+                    bat 'docker push public.ecr.aws/b9y2x3m3/dg_devops_container/calc_app:""$BUILD_ID""'
+                }
+            }
+        }
+    }
+    
+    post {
+        success{
+            echo 'calculator app docker image is successfully got deloyed to AWS ECR'
+        }
+
+    }
+}
