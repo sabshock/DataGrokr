@@ -25,7 +25,7 @@ pipeline {
         stage('build and Push image') {
             steps{
                 echo "Logging into AWS"
-                withenv({"aws_id = $(env.aws_sabDG_id)","aws_key = $(env.aws_sabDG_key)","aws_region = $(env.aws_region)"}){
+                withEnv(["aws_id = $(env.aws_sabDG_id)","aws_key = $(env.aws_sabDG_key)","aws_region = $(env.aws_region)"]){
                     echo "Loggin in to AWS ecr"
                     bat 'docker login -u AWS -p $(aws ecr-public get-login-password --region us-east-1) public.ecr.aws/b9y2x3m3'
                     echo 'building the image'
