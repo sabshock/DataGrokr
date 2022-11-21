@@ -1,7 +1,9 @@
 pipeline {
 
     agent any
-
+    environment{
+        AWS_ACCESS_CRED = credentials('sabDG_aws_creds')
+    }
     stages{
         stage('Git-checkout'){
             steps{
