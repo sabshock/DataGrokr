@@ -26,6 +26,7 @@ pipeline {
         
         stage('build and Push image') {
             steps{
+                bat 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/b9y2x3m3'
                 echo 'building the image'
                 bat "docker build -t public.ecr.aws/b9y2x3m3/dg_devops_container:${BUILD_ID} ."
                 echo 'Pushing the image to AWS ECR'
