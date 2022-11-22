@@ -14,7 +14,7 @@ pipeline{
             
             steps{
                 sh'echo "Runing Unit test"'    
-                sh 'python3 start.py'
+                sh 'python3 git_webhook.py'
             }
 
         }
