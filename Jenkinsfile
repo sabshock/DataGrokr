@@ -5,7 +5,7 @@ pipeline{
         stage ('git-checkout'){
             steps{
                 sh 'echo Checking out git Repo'
-                git branch: 'python', url: 'https://github.com/sabshock/DataGrokr.git'
+                git branch: 'agent', url: 'https://github.com/sabshock/DataGrokr.git'
             }
 
         }
